@@ -17,6 +17,8 @@
 #include <pcl/point_cloud.h>
 #include <pcl/features/vfh.h>
 
+#include <pcl/kdtree/kdtree_flann.h>
+
 
 using namespace std;
 using namespace pcl;
@@ -88,6 +90,7 @@ public:
 		clusters_histogram.push_back(vfhs);
 
 		if(vfhs->points.size() == 1) cout << "VFH computed for the " << i << "th cluster; " << endl;
+		cout << endl;
 
 
 	}
@@ -262,6 +265,50 @@ public:
 		}
 
 		cout << "MATCH: models_signatures size " << models_signatures.size() << endl;
+
+	}
+
+	void MatchHistograms(){
+
+		KdTreeFLANN<VFHSignature308> matching;
+		CorrespondencesPtr correspondences(new Correspondences());
+
+		int i = 1;
+		int j = 1;
+		cout << "MATCH: starting to match models and clusters histograms..." << endl;
+		cout << endl;
+		for(vector<PointCloud<VFHSignature308>::Ptr>::iterator it = models_histogram.begin(); it != models_histogram.end(); ++it,++i){
+			PointCloud<VFHSignature308>::Ptr model_histogram = *it;
+			matching.setInputCloud(model_histogram);
+
+			for(vector<PointCloud<VFHSignature308>::Ptr>::iterator it2 = clusters_histogram.begin(); it2 != clusters_histogram.end(); ++it2,++j){
+				PointCloud<VFHSignature308>::Ptr cluster_histogram = *it2;
+
+				if(j == clusters.size()+1) j = 1;
+
+				cout << "matching the " << i << "th model with the " << j << "th cluster... " << endl;
+
+				for(size_t i = 0; i < cluster_histogram->size(); ++i){
+					vector<int> neighbors(1);
+					vector<float> sqrDistances(1);
+
+					if(pcl_isfinite(cluster_histogram->at(i).histogram[0])){
+						int neighborsCount = matching.nearestKSearch(cluster_histogram->at(i), 1, neighbors, sqrDistances);
+						cout << "neighborsCount = " << neighborsCount << endl;
+						cout << "sqrDistances = " << sqrDistances[0] << endl;
+						if(neighborsCount == 1){
+							Correspondence correspondence(neighbors[0], static_cast<int>(i), sqrDistances[0]);
+							correspondences->push_back(correspondence);
+						}
+					}
+
+				}
+
+			}
+
+		}
+
+		cout << "Found " << correspondences->size() << " correspondences." << endl;
 
 	}
 

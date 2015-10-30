@@ -58,21 +58,7 @@ int main(int argc, char** argv){
 	match.computeModsFPFH();
 	match.computeHistograms();
 
+	match.MatchHistograms();
 
-	// PointCloud<PointXYZ>::Ptr object(new PointCloud<PointXYZ>);
-	// for(vector<PointCloud<PointNormal>::Ptr>::const_iterator it = clusters.begin(); it != clusters.end(); ++it){
-	// 	PointCloud<PointNormal>::Ptr cluster = *it;
-	// 	object->points.resize(cluster->points.size());
-	// 	for(int i = 0; i < cluster->points.size(); i++){
-	// 		object->points[i].x = cluster->points[i].x;
-	// 		object->points[i].y = cluster->points[i].y;
-	// 		object->points[i].z = cluster->points[i].z;
-	// 	}
-
-	// 	writeHist(object);
-	// }
-
-	// run();
-
-
+	return 0;
 }

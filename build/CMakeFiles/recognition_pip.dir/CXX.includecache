@@ -47,6 +47,8 @@ pcl/point_cloud.h
 -
 pcl/features/vfh.h
 -
+pcl/kdtree/kdtree_flann.h
+-
 
 /home/valerio/Scrivania/recognition_pipeline/plane_estimator.cpp
 iostream
