@@ -201,7 +201,7 @@ void diffOfNormals(){
 
 
   // Save DoN features
-  PCDWriter writer;
+  // PCDWriter writer;
   // writer.write<PointNormal> ("don.pcd", *doncloud, false); 
 
   // Filter by magnitude
@@ -259,10 +259,10 @@ void diffOfNormals(){
     //Save cluster
     don_clusters.push_back(cloud_cluster_don);
 
-    cout << "PointCloud representing the Cluster: " << cloud_cluster_don->points.size () << " data points." << endl;
-    stringstream ss;
-    ss << "cluster_" << j << ".pcd";
-    writer.write<PointNormal> (ss.str (), *cloud_cluster_don, false);
+    // cout << "PointCloud representing the Cluster: " << cloud_cluster_don->points.size () << " data points." << endl;
+    // stringstream ss;
+    // ss << "cluster_" << j << ".pcd";
+    // writer.write<PointNormal> (ss.str (), *cloud_cluster_don, false);
   }
 
   clusters = don_clusters;

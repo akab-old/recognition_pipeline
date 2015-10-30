@@ -1,6 +1,5 @@
 #include "plane_estimator.cpp"
 #include "matcher.cpp"
-#include "nearest_neighbors.cpp"
 #include <pcl/visualization/cloud_viewer.h>
 #include <pcl/visualization/pcl_visualizer.h>
 #include <pcl/filters/passthrough.h>
@@ -51,12 +50,13 @@ int main(int argc, char** argv){
 	//Extract clusters
 	est.diffOfNormals();
 	vector<PointCloud<PointNormal>::Ptr> clusters = est.getClusters();
+	PointCloud<PointNormal>::Ptr cloud_cluster_don;
 
-	//Compute Features //TODO
-	// Matcher match(clusters, models);
-	// match.computeClustersFPFH();
-	// match.computeModsFPFH();
-	// match.FeatureMatching();
+	//Compute Features
+	Matcher match(clusters, models);
+	match.computeClustersFPFH();
+	match.computeModsFPFH();
+	match.computeHistograms();
 
 
 	// PointCloud<PointXYZ>::Ptr object(new PointCloud<PointXYZ>);

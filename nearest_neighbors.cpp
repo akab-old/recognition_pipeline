@@ -50,13 +50,6 @@ void writeHist(PointCloud<PointXYZ>::Ptr cloud){
 
 }
 
-
-void loadHist(vector<string> filenames){
-
-
-}
-
-
 int run(){
 
   VFHSig::Ptr train_vfhs(new VFHSig());

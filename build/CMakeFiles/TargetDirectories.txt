@@ -1,0 +1,1 @@
+/home/valerio/Scrivania/recognition_pipeline/build/CMakeFiles/recognition_pip.dir
